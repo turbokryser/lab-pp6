@@ -2,7 +2,7 @@ package org.example.persistence.Repositories;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.example.api.Dto.ParachuteDTO;
+import org.example.api.Dto.FurnitureDTO;
 
 import java.util.*;
 
@@ -16,11 +16,11 @@ public abstract class AbstractStorage<T> {
     public abstract void readFromFile(String filename);
     //U
     public abstract void writeToFile(String filename);
-    public abstract List<ParachuteDTO> readFromXml(String filename);
-    public abstract void writeToXml(String filename, List<ParachuteDTO> cakes);
-    public abstract void writeDataToJsonFile(String filename,List<ParachuteDTO> cakes);
-    public abstract List<ParachuteDTO> readDataFromJsonFile(String filename);
-
+    public abstract List<FurnitureDTO> readFromXml(String filename);
+    public abstract void writeToXml(String filename, List<FurnitureDTO> cakes);
+    public abstract void writeDataToJsonFile(String filename,List<FurnitureDTO> cakes);
+    public abstract List<FurnitureDTO> readDataFromJsonFile(String filename);
+    //A
     //C/U
     public void addToListStorage(T item) {
         listStorage.add(item);

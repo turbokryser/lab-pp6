@@ -1,11 +1,11 @@
 package org.example.GUI;
 
-import org.example.GUI.ParachuteGUI;
+import org.example.GUI.FurnitureGUI;
 
 public class MainApp {
     public static void main(String[] args) {
         // Запуск графического интерфейса
-        ParachuteGUI gui = new ParachuteGUI();
+        FurnitureGUI gui = new FurnitureGUI();
         gui.createAndShowGUI();
     }
 }

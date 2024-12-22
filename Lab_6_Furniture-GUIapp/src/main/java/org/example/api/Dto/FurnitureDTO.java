@@ -1,15 +1,15 @@
 package org.example.api.Dto;
 
-public class ParachuteDTO {
+public class FurnitureDTO {
 
 
     private String name;
     private int cost;
     private String description;
 
-    public ParachuteDTO() {}
+    public FurnitureDTO() {}
 
-    public ParachuteDTO(String name, int cost, String description) {
+    public FurnitureDTO(String name, int cost, String description) {
         this.cost = cost;
         this.name = name;
         this.description = description;
@@ -41,7 +41,7 @@ public class ParachuteDTO {
 
     @Override
     public String toString() {
-        return "ParachuteDTO{" +
+        return "FurnitureDTO{" +
                 "cost=" + cost +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +

@@ -1,6 +1,6 @@
 package org.example.GUI;
 
-import org.example.api.Dto.ParachuteDTO;
+import org.example.api.Dto.FurnitureDTO;
 import org.example.persistence.Repositories.AbstractStorage;
 
 import org.json.JSONArray;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class FileOperations {
 
-    public static void readFromFile(AbstractStorage<ParachuteDTO> storage, String filename) throws IOException {
+    public static void readFromFile(AbstractStorage<FurnitureDTO> storage, String filename) throws IOException {
         if (filename.endsWith(".txt")) {
             storage.readFromFile(filename);
         } else if (filename.endsWith(".xml")) {
@@ -23,7 +23,7 @@ public class FileOperations {
         }
     }
 
-    public static void writeToFile(AbstractStorage<ParachuteDTO> storage, String filename) {
+    public static void writeToFile(AbstractStorage<FurnitureDTO> storage, String filename) {
         if (filename.endsWith(".txt")) {
             storage.writeToFile(filename);
         } else if (filename.endsWith(".xml")) {

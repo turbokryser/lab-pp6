@@ -1,7 +1,7 @@
 package org.example;
 
-import org.example.api.Dto.ParachuteDTO;
-import org.example.api.Factory.ParachuteFactory;
+import org.example.api.Dto.FurnitureDTO;
+import org.example.api.Factory.FurnitureFactory;
 import org.example.api.Misc.Archiver;
 
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        var storage = ParachuteFactory.getInstance();
+        var storage = FurnitureFactory.getInstance();
         Scanner scanner = new Scanner(System.in);
 
         boolean t1 = false;
@@ -41,7 +41,7 @@ public class Main {
             }
         } while (!t1);
         System.out.println("Список парашютов получен.");
-        for (ParachuteDTO dto : storage.getList()) {
+        for (FurnitureDTO dto : storage.getList()) {
             System.out.println(dto.toString());
         }
         System.out.println();
@@ -60,8 +60,8 @@ public class Main {
                 int finalId = id;
                 String finalDescription = description;
                 String finalName = name;
-                if (storage.getList().stream().anyMatch(parachuteDTO -> parachuteDTO.getCost() == finalId) &&
-                        storage.getList().stream().anyMatch(ParachuteDTO -> ParachuteDTO.getDescription().equals(finalDescription)) &&
+                if (storage.getList().stream().anyMatch(FurnitureDTO -> FurnitureDTO.getCost() == finalId) &&
+                        storage.getList().stream().anyMatch(FurnitureDTO -> FurnitureDTO.getDescription().equals(finalDescription)) &&
                         storage.getList().stream().anyMatch(CategoryDto -> CategoryDto.getName().equals(finalName))
                 ) {
                     System.out.println("Такой парашют уже получен!");
@@ -74,9 +74,9 @@ public class Main {
         } while (t != true);
         System.out.println(storage.getList());
 
-        var newParachute = new ParachuteDTO(name, id, description);
-        storage.addToListStorage(newParachute);
-        storage.addToMapStorage(id, newParachute);
+        var newFurniture = new FurnitureDTO(name, id, description);
+        storage.addToListStorage(newFurniture);
+        storage.addToMapStorage(id, newFurniture);
 
         storage.writeToFile("furniture.txt");
         storage.writeToXml("furniture.xml", storage.getList());
@@ -93,22 +93,22 @@ public class Main {
             switch (typeSort) {
 
                 case "cost":
-                    storage.getList().sort(Comparator.comparing(ParachuteDTO::getCost));
+                    storage.getList().sort(Comparator.comparing(FurnitureDTO::getCost));
                     System.out.println("Парашюты сортированные по cost: ");
-                    for (ParachuteDTO dto : storage.getList()) {
+                    for (FurnitureDTO dto : storage.getList()) {
                         System.out.println(dto.toString());
                     }
                     ans = true;
                     break;
 
                 case "name":
-                    storage.getList().sort(Comparator.comparing(ParachuteDTO::getName));
+                    storage.getList().sort(Comparator.comparing(FurnitureDTO::getName));
                     System.out.println("Парашюты сортированные по названию: " + storage.getList());
                     ans = true;
                     break;
 
                 case "description":
-                    storage.getList().sort(Comparator.comparing(ParachuteDTO::getDescription));
+                    storage.getList().sort(Comparator.comparing(FurnitureDTO::getDescription));
                     System.out.println("Парашюты сортированные по описанию: " + storage.getList());
                     ans = true;
                     break;

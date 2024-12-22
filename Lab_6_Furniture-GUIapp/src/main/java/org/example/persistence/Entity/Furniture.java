@@ -9,13 +9,13 @@ import lombok.experimental.FieldDefaults;
 @EqualsAndHashCode
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PROTECTED)
-public abstract class Parachute {
+public abstract class Furniture {
     Integer cost;
     String name;
     String description;
 
 
-    public Parachute(Integer cost, String name, String Desc) {
+    public Furniture(Integer cost, String name, String Desc) {
         this.name = name;
         this.cost = cost;
         this.description = Desc;
@@ -24,7 +24,7 @@ public abstract class Parachute {
 
     @Override
     public String toString() {
-        return "Parachute{" +
+        return "Furniture{" +
                 "cost=" + cost +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +

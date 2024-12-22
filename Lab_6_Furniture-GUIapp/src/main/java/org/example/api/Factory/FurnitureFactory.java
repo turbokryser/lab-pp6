@@ -1,6 +1,6 @@
 package org.example.api.Factory;
 
-import org.example.api.Dto.ParachuteDTO;
+import org.example.api.Dto.FurnitureDTO;
 import org.example.persistence.Repositories.AbstractStorage;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -22,15 +22,15 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ParachuteFactory extends AbstractStorage<ParachuteDTO> {
+public class FurnitureFactory extends AbstractStorage<FurnitureDTO> {
 
-    private static ParachuteFactory instance;
+    private static FurnitureFactory instance;
 
-    private ParachuteFactory() {}
+    private FurnitureFactory() {}
 
-    public static ParachuteFactory getInstance() {
+    public static FurnitureFactory getInstance() {
         if (instance == null) {
-            instance = new ParachuteFactory();
+            instance = new FurnitureFactory();
         }
         return instance;
     }
@@ -46,9 +46,9 @@ public class ParachuteFactory extends AbstractStorage<ParachuteDTO> {
                     String name = parts[0];
                     String desc = parts[2];
 
-                    ParachuteDTO parachute = new ParachuteDTO(name, cost, desc);
-                    addToListStorage(parachute);
-                    addToMapStorage(cost, parachute);
+                    FurnitureDTO Furniture = new FurnitureDTO(name, cost, desc);
+                    addToListStorage(Furniture);
+                    addToMapStorage(cost, Furniture);
                 }
                 catch (Exception e1)
                 {
@@ -63,7 +63,7 @@ public class ParachuteFactory extends AbstractStorage<ParachuteDTO> {
     @Override
     public void writeToFile(String filename) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
-            for (ParachuteDTO bus : listStorage) {
+            for (FurnitureDTO bus : listStorage) {
                 bw.write(bus.getName() + "," +
                         bus.getCost() + "," +
                         bus.getDescription()+"\n");
@@ -74,8 +74,8 @@ public class ParachuteFactory extends AbstractStorage<ParachuteDTO> {
     }
 
     @Override
-    public List<ParachuteDTO> readFromXml(String filename) {
-        List<ParachuteDTO> list = new ArrayList<>();
+    public List<FurnitureDTO> readFromXml(String filename) {
+        List<FurnitureDTO> list = new ArrayList<>();
         try {
             File xmlFile = new File(filename);
             DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
@@ -91,12 +91,12 @@ public class ParachuteFactory extends AbstractStorage<ParachuteDTO> {
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
 
-                    ParachuteDTO parachute = new ParachuteDTO();
-                    parachute.setCost(Integer.parseInt(element.getElementsByTagName("cost").item(0).getTextContent()));
-                    parachute.setName(element.getElementsByTagName("name").item(0).getTextContent());
-                    parachute.setDescription(element.getElementsByTagName("description").item(0).getTextContent());
+                    FurnitureDTO Furniture = new FurnitureDTO();
+                    Furniture.setCost(Integer.parseInt(element.getElementsByTagName("cost").item(0).getTextContent()));
+                    Furniture.setName(element.getElementsByTagName("name").item(0).getTextContent());
+                    Furniture.setDescription(element.getElementsByTagName("description").item(0).getTextContent());
 
-                    list.add(parachute);
+                    list.add(Furniture);
                 }
             }
         } catch (ParserConfigurationException | IOException | SAXException e) {
@@ -106,7 +106,7 @@ public class ParachuteFactory extends AbstractStorage<ParachuteDTO> {
     }
 
     @Override
-    public void writeToXml(String filename, List<ParachuteDTO> list) {
+    public void writeToXml(String filename, List<FurnitureDTO> list) {
         try {
             DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
@@ -115,24 +115,24 @@ public class ParachuteFactory extends AbstractStorage<ParachuteDTO> {
             Element root = document.createElement("fuenit");
             document.appendChild(root);
 
-            for (ParachuteDTO vehicle : list) {
-                Element parachute = document.createElement("furniture");
+            for (FurnitureDTO vehicle : list) {
+                Element Furniture = document.createElement("furniture");
 
                 Element type = document.createElement("name");
                 type.appendChild(document.createTextNode(vehicle.getName()));
-                parachute.appendChild(type);
+                Furniture.appendChild(type);
 
                 Element cost = document.createElement("cost");
                 cost.appendChild(document.createTextNode(String.valueOf(vehicle.getCost())));
-                parachute.appendChild(cost);
+                Furniture.appendChild(cost);
 
 
 
                 Element model = document.createElement("description");
                 model.appendChild(document.createTextNode(vehicle.getDescription()));
-                parachute.appendChild(model);
+                Furniture.appendChild(model);
 
-                root.appendChild(parachute);
+                root.appendChild(Furniture);
             }
 
             Transformer tr = TransformerFactory.newInstance().newTransformer();
@@ -148,12 +148,12 @@ public class ParachuteFactory extends AbstractStorage<ParachuteDTO> {
     }
 
     @Override
-    public ParachuteDTO findByName(String name) {
-        return listStorage.stream().filter(c -> c.getName().equals(name)).findFirst().orElse(new ParachuteDTO("",-1,""));
+    public FurnitureDTO findByName(String name) {
+        return listStorage.stream().filter(c -> c.getName().equals(name)).findFirst().orElse(new FurnitureDTO("",-1,""));
     }
 
-    public List<ParachuteDTO> readDataFromJsonFile(String fileName) {
-        List<ParachuteDTO> parachute = new ArrayList<>();
+    public List<FurnitureDTO> readDataFromJsonFile(String fileName) {
+        List<FurnitureDTO> Furniture = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             StringBuilder jsonContent = new StringBuilder();
             String line;
@@ -163,25 +163,25 @@ public class ParachuteFactory extends AbstractStorage<ParachuteDTO> {
             JSONArray jsonArray = new JSONArray(jsonContent.toString());
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                ParachuteDTO parachute1 = new ParachuteDTO();
-                parachute1.setName(jsonObject.getString("name"));
-                parachute1.setCost(jsonObject.getInt("cost"));
-                parachute1.setDescription(jsonObject.getString("description"));
-                parachute.add(parachute1);
+                FurnitureDTO Furniture1 = new FurnitureDTO();
+                Furniture1.setName(jsonObject.getString("name"));
+                Furniture1.setCost(jsonObject.getInt("cost"));
+                Furniture1.setDescription(jsonObject.getString("description"));
+                Furniture.add(Furniture1);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return parachute;
+        return Furniture;
     }
 
-    public void writeDataToJsonFile(String fileName, List<ParachuteDTO> parachutes) {
+    public void writeDataToJsonFile(String fileName, List<FurnitureDTO> Furnitures) {
         JSONArray jsonArray = new JSONArray();
-        for (ParachuteDTO parachute : parachutes) {
+        for (FurnitureDTO Furniture : Furnitures) {
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("name", parachute.getName());
-            jsonObject.put("cost", parachute.getCost());
-            jsonObject.put("description", parachute.getDescription());
+            jsonObject.put("name", Furniture.getName());
+            jsonObject.put("cost", Furniture.getCost());
+            jsonObject.put("description", Furniture.getDescription());
             jsonArray.put(jsonObject);
         }
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {

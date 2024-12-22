@@ -1,7 +1,7 @@
 package org.example.GUI;
 
-import org.example.api.Dto.ParachuteDTO;
-import org.example.api.Factory.ParachuteFactory;
+import org.example.api.Dto.FurnitureDTO;
+import org.example.api.Factory.FurnitureFactory;
 import org.example.api.Misc.Archiver;
 import org.example.persistence.Repositories.AbstractStorage;
 
@@ -13,16 +13,16 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Comparator;
 
-public class ParachuteGUI {
+public class FurnitureGUI {
 
-    private AbstractStorage<ParachuteDTO> storage;
+    private AbstractStorage<FurnitureDTO> storage;
     private JFrame frame;
     private JTextField costField, nameField, descriptionField;
     private JTable table;
     private DefaultTableModel tableModel;
 
-    public ParachuteGUI() {
-        storage = ParachuteFactory.getInstance();
+    public FurnitureGUI() {
+        storage = FurnitureFactory.getInstance();
     }
 
     public void createAndShowGUI() {
@@ -94,7 +94,7 @@ public class ParachuteGUI {
             if (!cost.isEmpty() && !name.isEmpty() && !description.isEmpty()) {
                 try {
                     int costInt = Integer.parseInt(cost);
-                    ParachuteDTO parachute = new ParachuteDTO(name, costInt,description);
+                    FurnitureDTO Furniture = new FurnitureDTO(name, costInt,description);
 
                     boolean isDuplicate = storage.getList().stream()
                             .anyMatch(p -> p.getName().equalsIgnoreCase(name));
@@ -102,10 +102,10 @@ public class ParachuteGUI {
                     if (isDuplicate) {
                         JOptionPane.showMessageDialog(frame, "Мебель с таким названием уже существует", "Ошибка", JOptionPane.ERROR_MESSAGE);
                     } else {
-                        storage.addToListStorage(parachute);
-                        storage.addToMapStorage(costInt, parachute);
+                        storage.addToListStorage(Furniture);
+                        storage.addToMapStorage(costInt, Furniture);
 
-                        tableModel.addRow(new Object[] {parachute.getName(), parachute.getCost(), parachute.getDescription()});
+                        tableModel.addRow(new Object[] {Furniture.getName(), Furniture.getCost(), Furniture.getDescription()});
                     }
 
                 } catch (NumberFormatException ex) {
@@ -198,13 +198,13 @@ public class ParachuteGUI {
                 new Thread(() -> {
                     switch (field) {
                         case "Стоимость":
-                            storage.getList().sort(Comparator.comparingInt(ParachuteDTO::getCost));
+                            storage.getList().sort(Comparator.comparingInt(FurnitureDTO::getCost));
                             break;
                         case "Название":
-                            storage.getList().sort(Comparator.comparing(ParachuteDTO::getName));
+                            storage.getList().sort(Comparator.comparing(FurnitureDTO::getName));
                             break;
                         case "Описание":
-                            storage.getList().sort(Comparator.comparing(ParachuteDTO::getDescription));
+                            storage.getList().sort(Comparator.comparing(FurnitureDTO::getDescription));
                             break;
                     }
                     updateTable();
@@ -233,8 +233,8 @@ public class ParachuteGUI {
 
     private void updateTable() {
         tableModel.setRowCount(0);
-        for (ParachuteDTO parachute : storage.getList()) {
-            tableModel.addRow(new Object[] {parachute.getName(), parachute.getCost(), parachute.getDescription()});
+        for (FurnitureDTO Furniture : storage.getList()) {
+            tableModel.addRow(new Object[] {Furniture.getName(), Furniture.getCost(), Furniture.getDescription()});
         }
     }
 }
